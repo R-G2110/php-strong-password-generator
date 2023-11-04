@@ -1,18 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
 
-	<!-- CDN Bootstrap -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+require_once __DIR__ . './partials/functions.php';
 
-	<title>Document</title>
-</head>
+$min = 8;
+$max = 32;
+$message ="Scegliere una password con un minimo di $min caratteri e un massimo di $max caratteri.";
+
+$password = '';
+
+if (isset($_GET["password_length"]) && !empty($_GET["password_length"])){
+	$password_length = $_GET["password_length"];
+
+	if($password_length < $min || $password_length > $max){
+		$message = "Errore! Il valore inserito deve essere compreso fra $min e $max";
+	}else{
+
+		
+    session_start();
+
+    $_SESSION['password'] = passwordGenerator($password_length);
+
+    header('Location: ./arrival.php');
+  }
+	
+}
+
+require_once __DIR__ . "/partials/head.php";
+?>
 <body>
 	<div class="container">
-		
+		<div class="title">
+			<h1>Strong Password Generator</h1>
+			<h2>Genera una password sicura</h2>
+		</div>
+		<div class="message">
+			<p><?php echo $message ?></p>
+		</div>
+		<div class="generator">
+			<form action="index.php" method="GET">
+				<div class="row">
+					<div class="col-6 ">
+						<span>Lunghezza password:</span>
+					</div>
+					<div class="col-4 ">
+						<select class="form-select" id="password_length" name="password_length">
+							<option selected value="">Scegliere lunghezza password</option>
+							<?php for($i=1; $i<=$max; $i++): ?>
+							<option value="<?php echo $i ?>"><?php echo $i ?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+				</div>
+				<div class=" col-auto  my-3  ">
+					<button type="submit" class="btn btn-primary">Invia</button>
+					<button type="reset" class="btn btn-secondary">Annulla</button>
+				</div>
+			</form>
+			
+		</div>
 	</div>
 </body>
 </html>

@@ -1,0 +1,38 @@
+body {
+	background-color: #001531;
+}
+
+h1 {
+	color: #808A99;
+}
+
+h2 {
+	color: #FFFFFF;
+}
+
+.container {
+	width: 100%;
+}
+
+.title,
+.message,
+.generator {
+	border-radius: 5px;
+	padding: 15px;
+}
+
+.title {
+	margin-top: 100px;
+	height: 140px;
+	text-align: center;
+}
+
+.message {
+	margin: 10px auto;
+	background-color: #CFF4FC;
+}
+
+.generator {
+	height: 145px;
+	background-color: #F8F9FA;
+}
